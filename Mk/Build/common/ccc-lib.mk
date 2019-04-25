@@ -5,6 +5,9 @@ ${BP}.lib:=${BP}
 .endif
 
 OUTPUT:=${BUILDDIR}/lib/lib${${BP}.lib}.so
+.ifndef lib${${BP}.lib}
+lib${${BP}.lib}:=${OUTPUT}
+.endif
 .include "uselibs.mk"
 
 ${BP}.LDFLAGS?=${LDFLAGS}
