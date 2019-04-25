@@ -1,0 +1,27 @@
+
+OBJS:=${SRCS:%=${BUILDDIR}/obj/%.o}
+ifeq "${SRCS}" ""
+$(warning No ${langname} sources specified for ${BP})
+OBJS:=
+endif
+${BP}._OBJS:=${OBJS}
+${BP}.CPPFLAGS?=${CPPFLAGS}
+#.for flagpref in ${flagpref}
+define expand0
+$${BP}.${flagpref}FLAGS?=$${${flagpref}FLAGS}
+$${BP}._products: $${${BP}._OBJS}
+endef
+$(eval ${expand0})
+#.for ccvar in ${ccvar}
+#.for src in ${SRCS}
+#.for BP in ${BP}
+define expand0
+${src:%=${BUILDDIR}/obj/%.o}: ${src}
+	@${MKDIR} $$$$(dirname $$@)
+	$${${ccvar}} -o $$@ -c ${src} $${${BP}.CPPFLAGS} $${${BP}.${flagpref}FLAGS} -fPIC
+endef
+$(foreach src,${SRCS},$(eval ${expand0}))
+#.endfor
+#.endfor
+#.endfor
+#.endfor

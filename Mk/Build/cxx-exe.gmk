@@ -1,0 +1,12 @@
+ifndef _${BP}_rules_cxx-exe
+_${BP}_rules_cxx-exe=
+
+include ${MK}/Build/cxx-objs.gmk
+
+ccvar:=CXX
+langname:=C++
+flagpref:=CXX
+
+include ${MK}/Build/common/ccc-exe.gmk
+
+endif

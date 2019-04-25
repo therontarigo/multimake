@@ -1,0 +1,22 @@
+
+ifndef ${BP}.exe
+${BP}.exe:=${BP}
+endif
+
+OUTPUT:=${BUILDDIR}/bin/${${BP}.exe}
+include ${MK}/Build/common/uselibs.gmk
+
+${BP}.LDFLAGS?=${LDFLAGS}
+
+#.for BP in ${BP}
+#.for ccvar in ${ccvar}
+define expand0
+$${BUILDDIR}/bin/$${${BP}.exe}: $${${BP}._OBJS}
+	@${MKDIR} $$$$(dirname $$@)
+	$${${ccvar}} -o $$@ $${${BP}._OBJS} $${${BP}.LDFLAGS}\
+	  -L$${BUILDDIR}/lib $${${BP}.uselibs:%=-l%}
+${BP}._products: $${BUILDDIR}/bin/$${${BP}.exe}
+endef
+$(eval ${expand0})
+#.endfor
+#.endfor

@@ -1,0 +1,14 @@
+
+The files contained herein form a modular make-based build system.
+
+A Makefile for use with this system is simplified: It specifies only which
+kinds of product are to be built (executable or library) and sources and
+compiler options for each product.  Corresponding rules are computed by the
+build system; they are never specified in Makefile.
+
+Languages & Compilers supported:
+  C and C++ following GCC/Clang command-line conventions
+
+Requirements: Either GNU Make or NetBSD Make.
+
+WWW: https://github.com/therontarigo/multimake

@@ -1,0 +1,12 @@
+ifndef _${BP}_rules_c-lib
+_${BP}_rules_c-lib=
+
+include ${MK}/Build/c-objs.gmk
+
+ccvar:=CC
+langname:=C
+flagpref:=C
+
+include ${MK}/Build/common/ccc-lib.gmk
+
+endif

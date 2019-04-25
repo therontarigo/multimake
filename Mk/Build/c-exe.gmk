@@ -1,0 +1,12 @@
+ifndef _${BP}_rules_c-exe
+_${BP}_rules_c-exe=
+
+include ${MK}/Build/c-objs.gmk
+
+ccvar:=CC
+langname:=C
+flagpref:=C
+
+include ${MK}/Build/common/ccc-exe.gmk
+
+endif

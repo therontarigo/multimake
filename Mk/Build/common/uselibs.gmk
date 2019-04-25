@@ -1,0 +1,10 @@
+
+#.for LIB in ${${BP}.uselibs}
+#.for libvar in lib${LIB}
+define expand0
+${OUTPUT}: ${lib${LIB}}
+endef
+$(foreach LIB,${${BP}.uselibs},$(eval ${expand0}))
+#.endfor
+#.endfor
+

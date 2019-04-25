@@ -1,0 +1,41 @@
+CFLAGS=-pipe
+CXXFLAGS=-pipe
+
+include ${CURDIR}/Makefile
+
+all:
+.DEFAULT_GOAL: all
+
+print-%:
+	@printf '%s\n' '$($*)'
+
+
+include ${MK}/defaults.mk
+BUILDDIR:=${BUILDDIR:./%=%}
+
+clean:
+	rm -rf ${BUILDDIR}
+
+MKDIR?=mkdir -p
+
+### .for prod in ${PRODUCTS}
+define foreach0
+### .if "${${prod}.build}" == ""
+ifeq "${${prod}.build}" ""
+### .warning No build specified for product ${prod}
+$$(warning No build specified for product ${prod})
+### .endif
+endif
+### .for build in ${${prod}.build}
+define foreach1
+BP:=$${prod}
+### .include <Build/${build}.mk>
+include $${MK}/Build/$${build}.gmk
+### .endfor
+endef
+$$(foreach build,$${${prod}.build},$$(eval $${foreach1}))
+all: ${prod}._products
+### .endfor
+endef
+$(foreach prod,${PRODUCTS},$(eval ${foreach0}))
+

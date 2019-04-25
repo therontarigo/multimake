@@ -1,0 +1,5 @@
+.PHONY: nothing
+nothing:
+	@true
+include GNUmakefile
+$(info ${${V}})
